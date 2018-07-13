@@ -102,13 +102,43 @@ const playGame = (function() {
   //displays relevant symbol ("x" or "o") upon mouse hovering over boxes
   gameBoxes.addEventListener("mouseover", e => {
     if (currentPlayer.player1.classList.contains("active")) {
-      e.target.style.backgroundImage = "url(img/o.svg)";
+      if (
+        !e.target.classList.contains("box-filled-1") &&
+        !e.target.classList.contains("box-filled-2")
+      ) {
+        e.target.style.backgroundImage = "url(img/o.svg)";
+      }
     } else {
-      e.target.style.backgroundImage = "url(img/x.svg)";
+      if (
+        !e.target.classList.contains("box-filled-1") &&
+        !e.target.classList.contains("box-filled-2")
+      ) {
+        e.target.style.backgroundImage = "url(img/x.svg)";
+      }
     }
   });
   //removes the displayed symbol applied from hover event
   gameBoxes.addEventListener("mouseout", e => {
     e.target.style.backgroundImage = "";
+  });
+  //applies the player's symbol on empty clicked boxes
+  gameBoxes.addEventListener("click", e => {
+    if (currentPlayer.player1.classList.contains("active")) {
+      if (
+        !e.target.classList.contains("box-filled-1") &&
+        !e.target.classList.contains("box-filled-2")
+      ) {
+        e.target.classList.add("box-filled-1");
+        currentPlayer.callMakeActive();
+      }
+    } else {
+      if (
+        !e.target.classList.contains("box-filled-1") &&
+        !e.target.classList.contains("box-filled-2")
+      ) {
+        e.target.classList.add("box-filled-2");
+        currentPlayer.callMakeActive();
+      }
+    }
   });
 })();
