@@ -96,3 +96,19 @@ const startGame = (function() {
     currentPlayer.callMakeActive();
   });
 })();
+
+const playGame = (function() {
+  const gameBoxes = document.querySelector(".boxes");
+  //displays relevant symbol ("x" or "o") upon mouse hovering over boxes
+  gameBoxes.addEventListener("mouseover", e => {
+    if (currentPlayer.player1.classList.contains("active")) {
+      e.target.style.backgroundImage = "url(img/o.svg)";
+    } else {
+      e.target.style.backgroundImage = "url(img/x.svg)";
+    }
+  });
+  //removes the displayed symbol applied from hover event
+  gameBoxes.addEventListener("mouseout", e => {
+    e.target.style.backgroundImage = "";
+  });
+})();
