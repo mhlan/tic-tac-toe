@@ -42,6 +42,7 @@
   const player2 = document.querySelector("#player2");
   const gameBoxes = document.querySelector(".boxes");
   const boxes = gameBoxes.querySelectorAll("li");
+  const message = document.querySelector(".message");
   const winningCombos = [
     ["1", "2", "3"],
     ["4", "5", "6"],
@@ -53,6 +54,7 @@
     ["3", "5", "7"]
   ];
 
+  //used to store each players board selections
   let player1Boxes = [];
   let player2Boxes = [];
 
@@ -69,7 +71,7 @@
 
   //stores each player's selection's id numbers, in ascending order
   //in each respective player's array
-  function fillPlayerBoxesArray() {
+  const fillPlayerBoxesArray = () => {
     for (let i = 0; i < boxes.length; i++) {
       let box = boxes[i];
       if (box.classList.contains("box-filled-1")) {
@@ -79,6 +81,7 @@
           if (checkWin(player1Boxes)) {
             toggleDisplay.hide("board");
             toggleDisplay.show("finish");
+            message.innerHTML = "Winner";
             document.querySelector("#finish").classList.add("screen-win-one");
           }
         }
@@ -89,14 +92,16 @@
           if (checkWin(player2Boxes)) {
             toggleDisplay.hide("board");
             toggleDisplay.show("finish");
+            message.innerHTML = "Winner";
             document.querySelector("#finish").classList.add("screen-win-two");
           }
         }
       }
     }
-  }
+  };
 
-  function clearBoxes() {
+  //clears all selected boxes
+  const clearBoxes = () => {
     for (let i = 0; i < boxes.length; i++) {
       let box = boxes[i];
       if (box.classList.contains("box-filled-1")) {
@@ -105,10 +110,10 @@
         box.classList.remove("box-filled-2");
       }
     }
-  }
+  };
 
-  //checks is player has entered a winning combination
-  function checkWin(player) {
+  //checks is player has a winning combination
+  const checkWin = player => {
     for (let i = 0; i < winningCombos.length; i++) {
       if (winningCombos[i].some(element => player.indexOf(element) >= 0)) {
         if (winningCombos[i].every(element => player.indexOf(element) >= 0)) {
@@ -116,7 +121,7 @@
         }
       }
     }
-  }
+  };
 
   //makes appropriate player active
   const switchPlayer = () => {
@@ -144,7 +149,7 @@
     }
   };
 
-  //marks box with player symbol
+  //marks box with player symbol upon mouse click
   const markBox = (selection, className) => {
     if (
       !selection.classList.contains("box-filled-1") &&
@@ -200,7 +205,7 @@
     e.target.style.backgroundImage = "";
   });
 
-  //applies symbol to box on click, changes current player
+  //applies symbol to box on click, changes current player, checks win state
   gameBoxes.addEventListener("click", e => {
     let selection = e.target;
     if (player1.classList.contains("active")) {
@@ -215,6 +220,7 @@
     if (moveCount === 9) {
       toggleDisplay.hide("board");
       toggleDisplay.show("finish");
+      message.innerHTML = "Tie";
       document.querySelector("#finish").classList.add("screen-win-tie");
     }
   });
