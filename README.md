@@ -1,4 +1,4 @@
-# Treehouse Tic-Tac-Toe - Project 4
+# Treehouse Project 4: Tic-Tac-Toe
 
 ###### Start Screen
 
